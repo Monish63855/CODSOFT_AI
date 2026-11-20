@@ -118,5 +118,7 @@ def play_game():
             print("Game Draw!")
             break
 
+    input("\nGame finished! Press Enter to close...")
+
 
 play_game()
