@@ -1,3 +1,8 @@
+# ==========================================
+# CODSOFT AI INTERNSHIP
+# TASK 3 - IMAGE CAPTIONING AI
+# ==========================================
+
 import torch
 from PIL import Image
 from transformers import BlipProcessor, BlipForConditionalGeneration
@@ -6,29 +11,31 @@ from tkinter import Tk, filedialog
 
 def image_captioning():
 
-    print("================================")
-    print("       IMAGE CAPTIONING AI")
-    print("================================")
+    print("=" * 50)
+    print("          IMAGE CAPTIONING AI")
+    print("=" * 50)
 
-    # Select an image
+    # Select image
     root = Tk()
     root.withdraw()
 
     image_path = filedialog.askopenfilename(
         title="Select an Image",
         filetypes=[
-            ("Image Files", "*.jpg *.jpeg *.png *.bmp")
+            ("Image Files", "*.jpg *.jpeg *.png *.webp")
         ]
     )
+
+    root.destroy()
 
     if not image_path:
         print("No image selected!")
         return
 
-    print("\nLoading Image Captioning Model...")
-    print("Please wait...")
-
     try:
+        print("\nLoading AI model...")
+        print("Please wait...")
+
         # Select device
         device = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -42,6 +49,7 @@ def image_captioning():
         )
 
         model.to(device)
+        model.eval()
 
         # Open image
         image = Image.open(image_path).convert("RGB")
@@ -65,12 +73,14 @@ def image_captioning():
         )
 
         # Display result
-        print("\n================================")
-        print("       GENERATED CAPTION")
-        print("================================")
-        print(caption)
-        print("================================")
+        print("\n" + "=" * 50)
+        print("             GENERATED CAPTION")
+        print("=" * 50)
+        print("Image:", image_path)
+        print("Caption:", caption)
+        print("=" * 50)
 
+        # Show selected image
         image.show()
 
     except Exception as error:
@@ -79,3 +89,4 @@ def image_captioning():
 
 if __name__ == "__main__":
     image_captioning()
+    
